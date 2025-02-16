@@ -30,15 +30,10 @@ const Taskcard = ({ heading }) => {
         {heading}
       </p>
       <div className='flex-grow flex flex-col justify-between min-h-[15rem] mt-2'>
-        <div className='flex flex-col gap-2 overflow-y-auto '>
+        <div className='flex flex-col gap-2 overflow-y-auto custom-scrollbar' >
           {tasks.map((task, index) => (
             <div key={index} className='flex items-center bg-indigo-800 p-2 rounded'>
-              <input
-                type='checkbox'
-                checked={task.completed}
-                onChange={() => toggleTask(index)}
-                className='ml-2 w-5 h-5'
-              />
+              <input type='checkbox' checked={task.completed} onChange={() => toggleTask(index)} className='ml-2 w-5 h-5'/>
               <p className={`ml-3 text-gray-200 w-full md:text-[1.3rem] ${task.completed ? 'line-through text-gray-400' : ''}`}>
                 {task.text}
               </p>
@@ -50,21 +45,14 @@ const Taskcard = ({ heading }) => {
         </div>
         <div className='flex flex-col gap-2 mt-3'>
           <div className='flex'>
-            <input
-              type='text'
-              placeholder='Enter task...'
-              value={newTask}
-              onChange={(e) => setNewTask(e.target.value)}
-              className='flex-grow p-2 rounded bg-indigo-950 text-blue-200 outline-none'
+            <input type='text' placeholder='Enter task...' value={newTask} onChange={(e) => setNewTask(e.target.value)} 
+            className='flex-grow p-2 rounded bg-indigo-950 text-blue-200 outline-none'
             />
-            <button
-              onClick={addTask}
-              className='ml-2 bg-blue-700 p-2 rounded text-white text-[0.8rem] md:text-[1.2rem] hover:bg-blue-800 hover:cursor-pointer'
-            >
+            <button onClick={addTask}
+              className='ml-2 bg-blue-700 p-2 rounded text-white text-[0.8rem] md:text-[1.2rem] hover:bg-blue-800 hover:cursor-pointer'>
               Add Task
             </button>
           </div>
-
         </div>
       </div>
     </div>
