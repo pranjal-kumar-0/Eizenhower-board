@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import { MdDeleteOutline } from "react-icons/md";
+import axios from 'axios';
 
-const Taskcard = ({ heading }) => {
+const Taskcard = ({ heading, isImportant, isUrgent }) => {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
 
-  const addTask = () => {
+  const handleAddTask = async(e) => {
+    e.preventDefault()
     if (newTask.trim() !== "") {
-      setTasks([...tasks, { text: newTask, completed: false }]);
-      setNewTask("");
+      const response = await axios.post('http://localhost:8000/tasks', {uid:15, task:newTask, isUrgent:isUrgent, isImportant:isImportant})
+      if (response.data.task){
+        setTasks([...tasks, { text: newTask, completed: false }]);
+        setNewTask("");
+      }
+      
     }
   };
 
@@ -48,7 +54,7 @@ const Taskcard = ({ heading }) => {
             <input type='text' placeholder='Enter task...' value={newTask} onChange={(e) => setNewTask(e.target.value)} 
             className='flex-grow p-2 rounded bg-indigo-950 text-blue-200 outline-none'
             />
-            <button onClick={addTask}
+            <button onClick={handleAddTask}
               className='ml-2 bg-blue-700 p-2 rounded text-white text-[0.8rem] md:text-[1.2rem] hover:bg-blue-800 hover:cursor-pointer'>
               Add Task
             </button>
